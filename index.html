@@ -576,7 +576,7 @@
 </footer>
 
 <script>
-  const GOOGLE_FORM_ACTION = 'https://docs.google.com/forms/d/e/1FAIpQLSd2nbOLzE5niSSDHPRQrRkoR6AkjW-si_XoVc7l8sOUZwDhLQ/formResponse';
+  const GOOGLE_FORM_ACTION = 'https://script.google.com/macros/s/AKfycby6NMdyCZnymyqW6bla3-cz4iG2oi_AIpGfH-QpHFUNIY4cp9ziX0j1m6LYbA495p7M/exec';
 
   function handleSubmit(e){
     e.preventDefault();
@@ -587,10 +587,10 @@
     const qualifier = document.querySelector('input[name="entryQualifier"]:checked');
 
     const data = new URLSearchParams();
-    data.append('entry.2104198754', document.getElementById('fName').value);
-    data.append('entry.200786451', document.getElementById('fEmail').value);
-    data.append('entry.140349000', document.getElementById('fPhone').value);
-    data.append('entry.58337578', qualifier ? qualifier.value : '');
+    data.append('name', document.getElementById('fName').value);
+    data.append('email', document.getElementById('fEmail').value);
+    data.append('phone', document.getElementById('fPhone').value);
+    data.append('qualifier', qualifier ? qualifier.value : '');
 
     // Google Forms doesn't allow reading the response cross-origin (no-cors),
     // so success/failure can't be confirmed client-side — this fires the
