@@ -9,18 +9,19 @@
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700;9..144,900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
   :root{
-    --navy-900:#080B16;
-    --navy-800:#0E1428;
-    --navy-700:#161E3B;
-    --navy-line:#2A3358;
-    --gold-500:#C9A227;
-    --gold-300:#E3C875;
-    --gold-100:#F3E6B8;
+    /* Rebranded to match The Inspire Group logo: dark forest green + gold sunburst */
+    --navy-900:#0D1712;
+    --navy-800:#15251D;
+    --navy-700:#1E332A;
+    --navy-line:#2E4238;
+    --gold-500:#E8940F;
+    --gold-300:#F4A11F;
+    --gold-100:#F8C978;
     --cream-100:#F5F0E6;
-    --cream-200:#EDE4CE;
+    --cream-200:#ECE1C8;
     --ink-100:#EDE8DC;
-    --ink-300:#B8BBC9;
-    --ink-900:#171308;
+    --ink-300:#B9C2BB;
+    --ink-900:#14201A;
     --serif: 'Fraunces', serif;
     --sans: 'Inter', sans-serif;
   }
@@ -68,9 +69,9 @@
   }
 
   .mark{
-    width:34px; height:34px;
+    width:min(320px, 70%);
+    height:auto;
     margin:0 auto 28px;
-    opacity:0.9;
   }
 
   .hero h1{
@@ -402,13 +403,10 @@
     padding:52px 0 40px;
     text-align:center;
   }
-  .foot-wordmark{
-    font-family:var(--serif);
-    font-weight:700;
-    font-size:15px;
-    letter-spacing:0.14em;
-    color:var(--gold-300);
-    margin-bottom:14px;
+  .foot-logo{
+    width:min(240px, 60%);
+    height:auto;
+    margin:0 auto 20px;
   }
   footer p{
     font-size:12.5px;
@@ -442,11 +440,7 @@
 <!-- HERO -->
 <section class="hero">
   <div class="wrap">
-    <svg class="mark" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <path d="M20 3L35 34H5L20 3Z" stroke="#C9A227" stroke-width="1.4"/>
-      <path d="M20 14L28 30H12L20 14Z" stroke="#C9A227" stroke-width="1.4"/>
-      <line x1="9" y1="34" x2="31" y2="34" stroke="#C9A227" stroke-width="1.4"/>
-    </svg>
+    <img class="mark" src="tig-logo-on-dark.png" alt="The Inspire Group">
     <p class="eyebrow">A Legacy Builders Original</p>
     <h1>A Life Designed, Not Accumulated</h1>
     <p class="sub">Why working hard isn't enough, and what to build instead.</p>
@@ -569,7 +563,7 @@
 
 <footer>
   <div class="wrap">
-    <p class="foot-wordmark">LEGACY BUILDERS</p>
+    <img class="foot-logo" src="tig-logo-on-dark.png" alt="The Inspire Group">
     <p>Going LIVE every Tuesday and Thursday on TikTok, and Wednesday on Zoom at Noon CST.</p>
     <p>© 2026 Legacy Builders, a movement of The Inspire Group.</p>
   </div>
