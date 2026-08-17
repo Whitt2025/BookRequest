@@ -567,17 +567,6 @@
   </div>
 </section>
 
-<!-- HIDDEN GOOGLE FORM BRIDGE -->
-<iframe name="hidden_iframe" id="hidden_iframe" style="display:none;" onload="onHiddenIframeLoad()"></iframe>
-<form id="googleBridge"
-      action="https://docs.google.com/forms/d/e/1FAIpQLSd2nbOLzE5niSSDHPRQrRkoR6AkjW-si_XoVc7l8sOUZwDhLQ/formResponse"
-      method="POST" target="hidden_iframe" style="display:none;">
-  <input type="text" name="entry.2104198754" id="gName">
-  <input type="text" name="entry.200786451" id="gEmail">
-  <input type="text" name="entry.140349000" id="gPhone">
-  <input type="text" name="entry.58337578" id="gQualifier">
-</form>
-
 <footer>
   <div class="wrap">
     <p class="foot-wordmark">LEGACY BUILDERS</p>
@@ -587,7 +576,7 @@
 </footer>
 
 <script>
-  let formSubmitted = false;
+  const GOOGLE_FORM_ACTION = 'https://docs.google.com/forms/d/e/1FAIpQLSd2nbOLzE5niSSDHPRQrRkoR6AkjW-si_XoVc7l8sOUZwDhLQ/formResponse';
 
   function handleSubmit(e){
     e.preventDefault();
@@ -595,27 +584,33 @@
     btn.disabled = true;
     btn.textContent = 'Sending…';
 
-    document.getElementById('gName').value = document.getElementById('fName').value;
-    document.getElementById('gEmail').value = document.getElementById('fEmail').value;
-    document.getElementById('gPhone').value = document.getElementById('fPhone').value;
     const qualifier = document.querySelector('input[name="entryQualifier"]:checked');
-    document.getElementById('gQualifier').value = qualifier ? qualifier.value : '';
 
-    formSubmitted = true;
-    document.getElementById('googleBridge').submit();
+    const data = new URLSearchParams();
+    data.append('entry.2104198754', document.getElementById('fName').value);
+    data.append('entry.200786451', document.getElementById('fEmail').value);
+    data.append('entry.140349000', document.getElementById('fPhone').value);
+    data.append('entry.58337578', qualifier ? qualifier.value : '');
 
-    // fallback in case iframe onload doesn't fire in time
-    setTimeout(function(){
-      if (formSubmitted) showThanks();
-    }, 1800);
-  }
-
-  function onHiddenIframeLoad(){
-    if (formSubmitted) showThanks();
+    // Google Forms doesn't allow reading the response cross-origin (no-cors),
+    // so success/failure can't be confirmed client-side — this fires the
+    // request and shows the thank-you state once it's been sent.
+    fetch(GOOGLE_FORM_ACTION, {
+      method: 'POST',
+      mode: 'no-cors',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body: data.toString()
+    })
+    .then(() => showThanks())
+    .catch((err) => {
+      console.error('Book request submission failed:', err);
+      btn.disabled = false;
+      btn.textContent = 'Send Me The Book';
+      alert('Something went wrong sending your request. Please try again.');
+    });
   }
 
   function showThanks(){
-    formSubmitted = false;
     document.getElementById('bookForm').style.display = 'none';
     document.getElementById('thanksMsg').classList.add('show');
   }
